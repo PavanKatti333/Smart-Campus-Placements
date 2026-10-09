@@ -40,6 +40,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- In-Memory Fallback Database for Zero-Downtime Cloud Deploys -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- Security Crypto for Password Hashing -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
