@@ -29,40 +29,9 @@ public class AuthService {
         String email = request.getEmail().trim().toLowerCase();
         String password = request.getPassword().trim();
 
-        // 1. Check Admin Login
-        if (email.equalsIgnoreCase("admin@smartcampus.edu") || email.equalsIgnoreCase("admin@college.edu")) {
-            if ("Admin@123".equals(password) || "admin".equals(password)) {
-                return new LoginResponse(
-                        0L,
-                        "Chief Placement Officer",
-                        email,
-                        "ADMIN",
-                        "admin-token-" + UUID.randomUUID(),
-                        "Admin login successful"
-                );
-            } else {
-                throw new IllegalArgumentException("Invalid password for Admin");
-            }
-        }
-
-        // 2. Check Recruiter Login
-        if (email.equalsIgnoreCase("recruiter@smartcampus.edu") || email.startsWith("recruiter@")) {
-            if ("Recruiter@123".equals(password) || "recruiter".equals(password)) {
-                return new LoginResponse(
-                        999L,
-                        "Campus Recruiter",
-                        email,
-                        "RECRUITER",
-                        "recruiter-token-" + UUID.randomUUID(),
-                        "Recruiter login successful"
-                );
-            }
-        }
-
-        // 3. Check Student Login
         Optional<Student> studentOpt = studentRepository.findByEmail(email);
         if (studentOpt.isEmpty()) {
-            throw new IllegalArgumentException("No account found with email: " + email);
+            throw new IllegalArgumentException("Invalid email or password");
         }
 
         Student student = studentOpt.get();
@@ -70,15 +39,19 @@ public class AuthService {
                 || password.equals(student.getPassword());
 
         if (!passwordMatches) {
-            throw new IllegalArgumentException("Invalid password");
+            throw new IllegalArgumentException("Invalid email or password");
         }
+
+        String role = (student.getRole() != null && !student.getRole().isBlank())
+                ? student.getRole().toUpperCase()
+                : "STUDENT";
 
         return new LoginResponse(
                 student.getId(),
                 student.getName(),
                 student.getEmail(),
-                student.getRole() != null ? student.getRole() : "STUDENT",
-                "student-token-" + UUID.randomUUID(),
+                role,
+                "token-" + UUID.randomUUID(),
                 "Login successful"
         );
     }

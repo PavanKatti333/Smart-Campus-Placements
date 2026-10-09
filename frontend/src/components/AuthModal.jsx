@@ -22,7 +22,7 @@ export function AuthModal({ isOpen, onClose }) {
     cgpa: 8.0,
     backlogs: 0,
     graduationYear: 2027,
-    resumeUrl: "https://smartcampus.edu/resumes/sample.pdf",
+    resumeUrl: "",
     role: "STUDENT",
   });
 
@@ -36,16 +36,6 @@ export function AuthModal({ isOpen, onClose }) {
       onClose();
     } catch (err) {
       toastError(err.message || "Failed to log in. Please check your credentials.");
-    }
-  };
-
-  const handleQuickLogin = async (email, password) => {
-    try {
-      const loggedUser = await login(email, password);
-      success(`Logged in as ${loggedUser.name} (${loggedUser.role})`);
-      onClose();
-    } catch (err) {
-      toastError(err.message || "Demo login failed.");
     }
   };
 
@@ -80,45 +70,6 @@ export function AuthModal({ isOpen, onClose }) {
           <button className="close-btn" onClick={onClose}>✕</button>
         </div>
 
-        {/* Demo Fast Login Pills */}
-        <div className="quick-demo-section">
-          <span className="demo-label">Quick One-Click Demo Sign In:</span>
-          <div className="demo-pills">
-            <button
-              type="button"
-              className="demo-pill admin-pill"
-              onClick={() => handleQuickLogin("admin@smartcampus.edu", "Admin@123")}
-              title="Chief Placement Officer"
-            >
-              ★ Placement Admin
-            </button>
-            <button
-              type="button"
-              className="demo-pill recruiter-pill"
-              onClick={() => handleQuickLogin("recruiter@smartcampus.edu", "Recruiter@123")}
-              title="Campus Recruiter"
-            >
-              💼 Recruiter
-            </button>
-            <button
-              type="button"
-              className="demo-pill student-pill"
-              onClick={() => handleQuickLogin("pavan@example.com", "Student@123")}
-              title="Student: CSE, CGPA 8.2"
-            >
-              🎓 Pavan (CSE, 8.2)
-            </button>
-            <button
-              type="button"
-              className="demo-pill student-pill"
-              onClick={() => handleQuickLogin("sneha@example.com", "Student@123")}
-              title="Student: ECE, CGPA 7.4"
-            >
-              🎓 Sneha (ECE, 7.4)
-            </button>
-          </div>
-        </div>
-
         {/* Tab switch */}
         <div className="auth-tabs">
           <button
@@ -140,12 +91,16 @@ export function AuthModal({ isOpen, onClose }) {
         <div className="modal-body auth-body">
           {activeTab === "LOGIN" ? (
             <form onSubmit={handleLogin} className="auth-form">
+              <div className="auth-role-info">
+                <span>Sign in for <strong>Students</strong>, <strong>College Management (Admin)</strong>, or <strong>Recruiters</strong>. Your portal opens automatically based on your account role.</span>
+              </div>
+
               <div className="form-group">
                 <label>Email Address</label>
                 <input
                   type="email"
                   className="form-control"
-                  placeholder="e.g. pavan@example.com or admin@smartcampus.edu"
+                  placeholder="Enter your email address"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
                   required

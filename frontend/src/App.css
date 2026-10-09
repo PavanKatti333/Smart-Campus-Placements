@@ -1786,7 +1786,7 @@ body {
 .status-fill.status-rejected { background: #ef4444; }
 
 /* ==========================================================================
-   AUTH MODAL & QUICK DEMO LOGINS
+   AUTH MODAL
    ========================================================================== */
 .auth-modal {
   max-width: 520px;
@@ -1806,62 +1806,6 @@ body {
   font-size: 0.8rem;
   color: var(--text-muted);
   margin: 0;
-}
-
-.quick-demo-section {
-  background: #f8fafc;
-  border-bottom: 1px solid var(--border-color);
-  padding: 0.85rem 1.25rem;
-}
-
-.demo-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.demo-pills {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-}
-
-.demo-pill {
-  padding: 0.45rem 0.75rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.78rem;
-  font-weight: 700;
-  border: 1px solid var(--border-color);
-  background: #ffffff;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.15s ease;
-}
-
-.demo-pill:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-}
-
-.demo-pill.admin-pill {
-  border-color: #fde68a;
-  background: #fffbeb;
-  color: #b45309;
-}
-
-.demo-pill.recruiter-pill {
-  border-color: #bae6fd;
-  background: #f0f9ff;
-  color: #0369a1;
-}
-
-.demo-pill.student-pill {
-  border-color: #bbf7d0;
-  background: #f0fdf4;
-  color: #15803d;
 }
 
 .auth-tabs {
@@ -1888,6 +1832,17 @@ body {
 
 .auth-body {
   padding: 1.5rem;
+}
+
+.auth-role-info {
+  background: #f1f5f9;
+  border-left: 3px solid var(--primary);
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 1.1rem;
 }
 
 .form-row-2 {

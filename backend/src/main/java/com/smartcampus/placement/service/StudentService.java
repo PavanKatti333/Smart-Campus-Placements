@@ -30,10 +30,10 @@ public class StudentService {
         Student student = new Student();
         mapRequestToEntity(request, student);
 
-        String rawPassword = (request.getPassword() != null && !request.getPassword().isBlank())
-                ? request.getPassword()
-                : "Student@123";
-        student.setPassword(passwordEncoder.encode(rawPassword));
+        if (request.getPassword() == null || request.getPassword().isBlank()) {
+            throw new IllegalArgumentException("Password is required");
+        }
+        student.setPassword(passwordEncoder.encode(request.getPassword().trim()));
 
         Student saved = studentRepository.save(student);
         return mapEntityToResponse(saved);

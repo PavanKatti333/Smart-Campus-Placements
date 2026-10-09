@@ -117,15 +117,9 @@ function AppMain() {
                 student={
                   user?.role === "STUDENT"
                     ? user
-                    : students[0] || {
-                        id: 1,
-                        name: "Demo Student",
-                        branch: "CSE",
-                        cgpa: 8.5,
-                        backlogs: 0,
-                        graduationYear: 2027,
-                        email: "student@smartcampus.edu",
-                      }
+                    : students.length > 0
+                    ? students[0]
+                    : user
                 }
                 jobs={jobs}
                 applications={applications}

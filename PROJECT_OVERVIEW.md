@@ -110,16 +110,15 @@ Consumes `/analytics/dashboard` to provide TPOs with real-time campus statistics
 
 ---
 
-## 🔑 5. Pre-Seeded Demo Accounts (1-Click Login)
+## 🔑 5. Authentication & User Access
 
-The platform includes pre-configured demo accounts directly accessible via 1-click buttons on the login modal:
+The platform authenticates all users against the database using BCrypt password encryption:
 
-| Role | Name | Email | Password | Details |
-| :--- | :--- | :--- | :--- | :--- |
-| **Placement Admin** | Chief Placement Officer | `admin@smartcampus.edu` | `Admin@123` | Full administrative control & analytics |
-| **Campus Recruiter** | Campus Recruiter | `recruiter@smartcampus.edu` | `Recruiter@123` | Applicant review, interviews & offers |
-| **Student (CSE)** | Pavan Kumar | `pavan@example.com` | `Student@123` | CSE, CGPA 8.2, 0 Backlogs, Class of 2027 |
-| **Student (ECE)** | Sneha Reddy | `sneha@example.com` | `Student@123` | ECE, CGPA 7.4, 1 Backlog, Class of 2026 |
+| Role | Access Level | Provisioning Method |
+| :--- | :--- | :--- |
+| **Student** | Student Portal (Application submission, live eligibility, offers) | Self-register via the **"New Student Register"** tab |
+| **Placement Admin** | Administrative Console (Talent pool, companies, jobs, analytics) | Database provisioned with role `ADMIN` |
+| **Campus Recruiter** | Recruiter Console (Candidate evaluation, interviews, offers) | Database provisioned with role `RECRUITER` |
 
 ---
 
@@ -212,7 +211,7 @@ Smart Campus Placement/
         │   └── api.js                    <-- Centralized REST API Service
         └── components/
             ├── Navbar.jsx                <-- Header, Role Badges & View Switcher
-            ├── AuthModal.jsx             <-- Login, Register & 1-Click Demo Logins
+            ├── AuthModal.jsx             <-- Login & Student Registration Dialog
             ├── NotificationCenter.jsx    <-- Real-time Alerts Dropdown
             ├── JobCard.jsx               <-- Job Display with Live Pre-Eligibility
             ├── StudentDashboard.jsx      <-- Student Portal (Jobs, Apps, Interviews, Offers)

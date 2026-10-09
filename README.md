@@ -233,16 +233,15 @@ $$\text{Student} \longrightarrow \text{Job Discovery} \longrightarrow \text{Elig
 
 ---
 
-## 🔑 7. Demo Accounts (1-Click Login Ready)
+## 🔑 7. Authentication & User Roles
 
-The application provides instant 1-click login buttons on the login modal:
+Authentication requires valid credentials verified against the database. No hardcoded or demo login bypasses are present.
 
-| Role | Name | Email | Password | Academic / Role Profile |
-| :--- | :--- | :--- | :--- | :--- |
-| **Placement Admin** | Chief Placement Officer | `admin@smartcampus.edu` | `Admin@123` | Complete administrative control & analytics |
-| **Campus Recruiter** | Campus Recruiter | `recruiter@smartcampus.edu` | `Recruiter@123` | Applicant review, interviews & offers |
-| **Student (CSE)** | Pavan Kumar | `pavan@example.com` | `Student@123` | CSE, CGPA 8.2, 0 Backlogs, Grad: 2027 |
-| **Student (ECE)** | Sneha Reddy | `sneha@example.com` | `Student@123` | ECE, CGPA 7.4, 1 Backlog, Grad: 2026 |
+| Role | Access Level | Registration / Provisioning |
+| :--- | :--- | :--- |
+| **Student** | Student Portal (Job discovery, eligibility checks, applications, offers) | Self-register via the **"New Student Register"** tab on the login modal |
+| **Placement Admin** | Admin Console (Talent pool, partner employers, job postings, full analytics) | Database provisioned with role `ADMIN` |
+| **Campus Recruiter** | Recruiter Console (Candidate evaluation, interview scoring, offer release) | Database provisioned with role `RECRUITER` |
 
 ---
 
@@ -274,7 +273,7 @@ Open a terminal in the `backend` directory:
 cd backend
 mvn spring-boot:run
 ```
-*The backend server will initialize the schema, pre-seed demo companies, jobs, and accounts via `DataInitializer.java`, and listen on `http://localhost:8083`.*
+*The backend server will initialize the schema, pre-seed initial companies & jobs via `DataInitializer.java`, and listen on `http://localhost:8083`.*
 
 To run the full unit and integration test suite:
 ```bash
@@ -308,7 +307,7 @@ smart-campus-placement/
 │       │   │   ├── PlacementApplication.java  <-- Main Spring Boot Entrypoint
 │       │   │   ├── config/
 │       │   │   │   ├── CorsConfig.java        <-- Cross-Origin Configuration
-│       │   │   │   ├── DataInitializer.java   <-- Seeds Demo Accounts, Companies & Jobs
+│       │   │   │   ├── DataInitializer.java   <-- Seeds Initial Companies & Jobs
 │       │   │   │   └── SecurityConfig.java    <-- BCrypt Password Encoder Bean
 │       │   │   ├── controller/                <-- 9 REST Controllers
 │       │   │   ├── dto/                       <-- Request & Response DTOs
@@ -341,7 +340,7 @@ smart-campus-placement/
 │       │   └── ToastContext.jsx               <-- Non-blocking Notification Provider
 │       └── components/
 │           ├── Navbar.jsx                     <-- Navigation Bar & Role Indicators
-│           ├── AuthModal.jsx                  <-- Login/Register Dialog & 1-Click Demo
+│           ├── AuthModal.jsx                  <-- Login & Student Registration Dialog
 │           ├── JobCard.jsx                    <-- Job Card with Live Eligibility Check
 │           ├── NotificationCenter.jsx         <-- Real-time Alerts Dropdown
 │           ├── AnalyticsDashboard.jsx         <-- Placement KPIs & Visual Funnels

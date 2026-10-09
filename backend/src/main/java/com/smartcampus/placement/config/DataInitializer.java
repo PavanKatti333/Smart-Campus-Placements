@@ -2,12 +2,9 @@ package com.smartcampus.placement.config;
 
 import com.smartcampus.placement.entity.Company;
 import com.smartcampus.placement.entity.Job;
-import com.smartcampus.placement.entity.Student;
 import com.smartcampus.placement.repository.CompanyRepository;
 import com.smartcampus.placement.repository.JobRepository;
-import com.smartcampus.placement.repository.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,56 +12,18 @@ import java.time.LocalDate;
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    private final StudentRepository studentRepository;
     private final CompanyRepository companyRepository;
     private final JobRepository jobRepository;
-    private final PasswordEncoder passwordEncoder;
 
     public DataInitializer(
-            StudentRepository studentRepository,
             CompanyRepository companyRepository,
-            JobRepository jobRepository,
-            PasswordEncoder passwordEncoder) {
-        this.studentRepository = studentRepository;
+            JobRepository jobRepository) {
         this.companyRepository = companyRepository;
         this.jobRepository = jobRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void run(String... args) {
-        // Seed default students if missing
-        if (studentRepository.findByEmail("pavan@example.com").isEmpty()) {
-            Student pavan = new Student(
-                    "Pavan Kumar",
-                    "pavan@example.com",
-                    passwordEncoder.encode("Student@123"),
-                    "9876543210",
-                    "CSE",
-                    8.2,
-                    0,
-                    2027,
-                    "https://smartcampus.edu/resumes/pavan-kumar.pdf",
-                    "STUDENT"
-            );
-            studentRepository.save(pavan);
-        }
-
-        if (studentRepository.findByEmail("sneha@example.com").isEmpty()) {
-            Student sneha = new Student(
-                    "Sneha Reddy",
-                    "sneha@example.com",
-                    passwordEncoder.encode("Student@123"),
-                    "9876543211",
-                    "ECE",
-                    7.4,
-                    1,
-                    2026,
-                    "https://smartcampus.edu/resumes/sneha-reddy.pdf",
-                    "STUDENT"
-            );
-            studentRepository.save(sneha);
-        }
 
         // Seed Companies if missing
         if (companyRepository.count() == 0) {
