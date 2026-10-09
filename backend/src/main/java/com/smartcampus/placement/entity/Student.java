@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 })
 public class Student {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,7 +48,7 @@ public class Student {
     @Column(nullable = false)
     private String role = "STUDENT";
 
-    @Column(updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
