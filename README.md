@@ -258,12 +258,20 @@ Authentication requires valid credentials verified against the database. No hard
 ### Step 1: Database Setup
 1. Ensure your MySQL service is running on port `3306`.
 2. Spring Boot is configured with `createDatabaseIfNotExist=true` to automatically create the `smart_campus_placement` database if it does not already exist.
-3. Configure your password in `backend/src/main/resources/application.properties` or provide it as an environment variable:
-   ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/smart_campus_placement?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-   spring.datasource.username=root
-   spring.datasource.password=${DB_PASSWORD:Rishi@19}
+3. Configure your database credentials and server port using the `backend/.env` file (copied from `backend/.env.example`):
+   ```env
+   # Server Configuration
+   PORT=8083
+
+   # Database Configuration
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_NAME=smart_campus_placement
+   DB_USERNAME=root
+   DB_PASSWORD=Rishi@19
    ```
+   *(Spring Boot automatically imports `backend/.env` via `spring.config.import` with fallback defaults).*
+
 
 ---
 
