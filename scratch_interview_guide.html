@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Campus Placement - Architecture, Flow & Interview Master Guide</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1e293b;
+    background: #ffffff;
+    line-height: 1.55;
+    font-size: 13.5px;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Header Cover / Title Strip */
+  .doc-header {
+    border-bottom: 3px solid #2563eb;
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+  .doc-badge {
+    display: inline-block;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 9px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    border: 1px solid #bfdbfe;
+  }
+  h1 {
+    font-size: 24px;
+    color: #0f172a;
+    margin: 4px 0 6px 0;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+  .doc-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 17px;
+    color: #1e3a8a;
+    border-bottom: 1.5px solid #e2e8f0;
+    padding-bottom: 5px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  h3 {
+    font-size: 14.5px;
+    color: #0f172a;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  p {
+    margin: 0 0 9px 0;
+  }
+
+  ul, ol {
+    margin: 0 0 10px 0;
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 18px 0;
+    font-size: 12.5px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 7px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: 700;
+  }
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  /* Code / Diagram Blocks */
+  pre, code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  }
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    line-height: 1.45;
+    overflow-x: auto;
+    margin: 8px 0 14px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  code {
+    background: #f1f5f9;
+    color: #b91c1c;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  /* Callout Boxes */
+  .callout {
+    background: #f0fdf4;
+    border-left: 4px solid #16a34a;
+    padding: 9px 12px;
+    border-radius: 0 5px 5px 0;
+    margin: 10px 0 14px 0;
+    font-size: 12.5px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .callout-info {
+    background: #f8fafc;
+    border-left: 4px solid #2563eb;
+  }
+
+  /* Question Cards */
+  .q-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 11px 13px;
+    margin-bottom: 13px;
+    background: #ffffff;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  }
+  .q-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .q-badge {
+    background: #dbeafe;
+    color: #1e40af;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .q-answer {
+    color: #334155;
+    font-size: 12.8px;
+    line-height: 1.55;
+  }
+  .q-answer strong {
+    color: #0f172a;
+  }
+
+  /* Persona Card */
+  .persona-grid {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0 16px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .persona-box {
+    flex: 1;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 9px 11px;
+    background: #f8fafc;
+  }
+  .persona-title {
+    font-weight: 700;
+    font-size: 12.5px;
+    margin-bottom: 5px;
+    color: #0f172a;
+  }
+
+  .page-break {
+    page-break-before: always;
+    break-before: always;
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-badge">Full-Stack Campus Recruitment Platform</div>
+  <h1>Smart Campus Placement Management Platform</h1>
+  <p class="doc-subtitle">Complete Working Flow, State Machine Architecture & Technical Interview Preparation Guide</p>
+</div>
+
+<!-- ========================================================================= -->
+<h2>📌 PART 1: Working Flow & Architecture Overview</h2>
+
+<h3>1. High-Level System Architecture</h3>
+<p>
+  The platform is an enterprise-grade recruiting automation solution built with <strong>Spring Boot 3.4.3</strong>, <strong>React 19 with Vite</strong>, and <strong>MySQL 8.0</strong>. It eliminates manual spreadsheets and fragmented circulars by enforcing centralized rule validation and an automated recruitment state machine.
+</p>
+
+<pre>
+┌────────────────────────────────────────────────────────┐
+│                   React 19 + Vite                      │
+│ (AuthContext, ToastContext, usePlacementData, api.js)  │
+└──────────────────────────┬─────────────────────────────┘
+                           │ HTTP / REST (JSON API)
+┌──────────────────────────▼─────────────────────────────┐
+│                 Spring Boot 3.4.3                      │
+│  Controllers ──► Services ──► Repositories (JPA)      │
+│  [Eligibility Engine]  &  [Recruitment State Machine]   │
+└──────────────────────────┬─────────────────────────────┘
+                           │ JDBC / Hibernate ORM
+┌──────────────────────────▼─────────────────────────────┐
+│                 MySQL 8.0 Database                     │
+│  (Tables: student, company, job, application, etc.)    │
+└────────────────────────────────────────────────────────┘
+</pre>
+
+<h3>2. The Recruitment State Machine Flow</h3>
+<p>
+  Every student application progresses through a strict, deterministic workflow state machine:
+</p>
+
+<pre>
+[APPLIED] ──► [SHORTLISTED] ──► [INTERVIEW] ──► [SELECTED] ──► [OFFER GENERATED] ──► [ACCEPTED]
+    │              │                │               │
+    ▼              ▼                ▼               ▼
+[REJECTED]     [REJECTED]        [FAILED]       [DECLINED]
+</pre>
+
+<ul>
+  <li><strong>Stage 1 (Applied)</strong>: Student submits application after passing the 4-point Pre-Eligibility Rule Check.</li>
+  <li><strong>Stage 2 (Shortlisted)</strong>: TPO or Recruiter reviews candidate credentials and marks candidate as shortlisted.</li>
+  <li><strong>Stage 3 (Interview Scheduled)</strong>: Recruiter books technical/HR interview with round date, time, mode (virtual/in-person), and panel details. Instant notification is dispatched to the candidate.</li>
+  <li><strong>Stage 4 (Interview Outcome)</strong>: Marking an interview as <code>PASSED</code> automatically triggers a state transition to <code>SELECTED</code>. Marking as <code>FAILED</code> transitions to <code>REJECTED</code>.</li>
+  <li><strong>Stage 5 (Offer Released)</strong>: Recruiter or TPO rolls out a formal placement offer with annual CTC (LPA) and anticipated reporting date.</li>
+  <li><strong>Stage 6 (Decision)</strong>: Student reviews the terms and formally clicks <strong>Accept</strong> (permanently recording their placement in campus analytics) or <strong>Decline</strong>.</li>
+</ul>
+
+<h3>3. User Personas & Responsibilities</h3>
+<div class="persona-grid">
+  <div class="persona-box">
+    <div class="persona-title">🎓 Student</div>
+    <ul style="padding-left:15px; margin:0; font-size:11.8px;">
+      <li>Manage profile & resume link</li>
+      <li>Live pre-eligibility evaluation</li>
+      <li>1-click job application</li>
+      <li>Real-time stage tracking</li>
+      <li>Accept / Decline offers</li>
+      <li>Notification center alerts</li>
+    </ul>
+  </div>
+  <div class="persona-box">
+    <div class="persona-title">🏛️ Placement Officer (Admin)</div>
+    <ul style="padding-left:15px; margin:0; font-size:11.8px;">
+      <li>Executive Placement Intelligence</li>
+      <li>Department-wise placement graphs</li>
+      <li>Register visiting employers</li>
+      <li>Publish & manage job drives</li>
+      <li>Full talent pool inspection</li>
+      <li>Oversee full candidate pipeline</li>
+    </ul>
+  </div>
+  <div class="persona-box">
+    <div class="persona-title">💼 Campus Recruiter</div>
+    <ul style="padding-left:15px; margin:0; font-size:11.8px;">
+      <li>Inspect company applicant pool</li>
+      <li>Review candidate CVs & CGPAs</li>
+      <li>Schedule interview rounds</li>
+      <li>Record Pass/Fail interview results</li>
+      <li>Generate formal offer letters</li>
+      <li>Track candidate offer responses</li>
+    </ul>
+  </div>
+</div>
+
+<h3>4. Deterministic Pre-Eligibility Rule Engine</h3>
+<p>
+  Located in <code>EligibilityService.java</code>, this engine guarantees that unqualified applicants cannot flood recruiter inboxes:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Validation Rule</th>
+      <th>Evaluation Logic</th>
+      <th>Human-Readable Rejection Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Academic Cutoff</strong></td>
+      <td><code>Student.CGPA &gt;= Job.MinCGPA</code></td>
+      <td>"CGPA of 6.8 is below required 7.5"</td>
+    </tr>
+    <tr>
+      <td><strong>2. Branch Restriction</strong></td>
+      <td><code>Job.AllowedBranch == 'ALL' || Allowed.contains(Student.Branch)</code></td>
+      <td>"Branch MECH is not eligible for this role"</td>
+    </tr>
+    <tr>
+      <td><strong>3. Backlog Constraint</strong></td>
+      <td><code>Student.Backlogs &lt;= Job.MaxBacklogs</code></td>
+      <td>"Active backlogs (2) exceeds allowed limit (0)"</td>
+    </tr>
+    <tr>
+      <td><strong>4. Application Deadline</strong></td>
+      <td><code>LocalDate.now() &lt;= Job.Deadline</code></td>
+      <td>"Application deadline passed on [Date]"</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- ========================================================================= -->
+<h2>🎯 PART 2: Comprehensive Technical & Behavioral Interview Q&As</h2>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Overview</span> Q1: Can you give a 2-minute elevator pitch of your Smart Campus Placement project?</div>
+  <div class="q-answer">
+    "Smart Campus Placement is an enterprise-grade full-stack recruitment automation solution designed to replace manual spreadsheets, delayed circulars, and fragmented emails in college placements.
+    <br><br>
+    It seamlessly connects three primary stakeholders—Students, Placement Officers (TPOs), and Corporate Recruiters—in a unified real-time ecosystem. The core innovation is our <strong>deterministic pre-eligibility rule engine</strong> that validates student academic metrics (CGPA cutoff, branch eligibility, backlogs, deadlines) before application submission, coupled with an <strong>automated recruitment state machine</strong> that coordinates interview scheduling, scoring, formal offer rollout, and visual campus intelligence analytics."
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Tech Stack</span> Q2: What is the technology stack used, and what was your design rationale?</div>
+  <div class="q-answer">
+    <ul>
+      <li><strong>Backend: Spring Boot 3.4.3 & Java 23</strong> — Provides enterprise dependency injection, declarative transactions (<code>@Transactional</code>), Jakarta validation, and Spring Data JPA.</li>
+      <li><strong>Database: MySQL 8.0 & Hibernate ORM</strong> — Campus recruitment is inherently relational; ACID compliance, composite unique constraints, and foreign key integrity are non-negotiable.</li>
+      <li><strong>Security: BCrypt Password Encoder</strong> — Implements salted, adaptive hashing (10 rounds) for user credentials.</li>
+      <li><strong>Frontend: React 19 + Vite 8.2</strong> — Single-page application offering lightning-fast HMR build times, modern Context API for state management, and declarative component architecture.</li>
+      <li><strong>Styling: Modern Vanilla CSS</strong> — Handcrafted CSS custom properties (tokens), responsive grid/flexbox layouts, and glassmorphic aesthetic without third-party CSS overhead.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Backend</span> Q3: How does the Eligibility Rule Engine work in the backend?</div>
+  <div class="q-answer">
+    "The eligibility evaluation is encapsulated in <code>EligibilityService.java</code>. When a student opens a job card or attempts to apply, the engine executes four deterministic rules:
+    <ol>
+      <li><strong>CGPA Cutoff</strong>: <code>student.getCgpa() &gt;= job.getMinCgpa()</code></li>
+      <li><strong>Branch Check</strong>: Checks if the job's allowed branch string equals <code>'ALL'</code> or contains the student's department code (e.g., <code>'CSE'</code>, <code>'ECE'</code>).</li>
+      <li><strong>Backlog Constraint</strong>: <code>student.getBacklogs() &lt;= job.getMaxBacklogs()</code></li>
+      <li><strong>Deadline Check</strong>: <code>LocalDate.now().isBefore(job.getDeadline()) || isEqual()</code></li>
+    </ol>
+    We exposed a dedicated endpoint (<code>GET /applications/check-eligibility</code>). If any rule fails, the service returns an <code>EligibilityResult</code> with <code>isEligible: false</code> and an array of specific, human-friendly reasons so candidates understand exactly why they cannot apply."
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Pipeline</span> Q4: How is the recruitment state machine governed? What happens if an interview passes or fails?</div>
+  <div class="q-answer">
+    "The recruitment pipeline is modeled as an automated state machine across <code>ApplicationService.java</code> and <code>InterviewService.java</code>:
+    <ul>
+      <li>Applications initialize in <code>APPLIED</code> status upon submission.</li>
+      <li>Recruiters or Admins screen credentials and transition valid profiles to <code>SHORTLISTED</code>.</li>
+      <li>Interviews can <em>only</em> be booked for candidates currently in <code>SHORTLISTED</code> status.</li>
+      <li>When an interviewer submits an outcome:
+        <ul>
+          <li>If <code>PASSED</code>: The backend automatically transitions the linked application to <code>SELECTED</code> and dispatches an instant notification to the candidate.</li>
+          <li>If <code>FAILED</code>: The application automatically transitions to <code>REJECTED</code>.</li>
+        </ul>
+      </li>
+      <li>Formal offers (with CTC and reporting date) can <em>only</em> be generated for applications in <code>SELECTED</code> state."
+    </ul>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Concurrency</span> Q5: How do you prevent duplicate applications from the same student for the same job?</div>
+  <div class="q-answer">
+    "We enforce a defense-in-depth strategy across two architectural layers:
+    <ol>
+      <li><strong>Application Service Layer</strong>: In <code>ApplicationService.applyForJob()</code>, we execute a repository check <code>applicationRepository.findByStudentIdAndJobId(studentId, jobId)</code>. If present, it throws an <code>IllegalArgumentException("Student has already applied for this job")</code> before any database write occurs.</li>
+      <li><strong>Database Constraint Layer</strong>: On the MySQL table <code>application</code>, we defined a composite unique constraint:
+      <br><code>@Table(name = "application", uniqueConstraints = {@UniqueConstraint(name = "uk_student_job", columnNames = {"student_id", "job_id"})})</code>
+      <br>Even in the presence of concurrent race conditions or double-click clicks from a browser, the database guarantees referential uniqueness."
+    </ol>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Security</span> Q6: How does authentication and Role-Based Access Control (RBAC) work in your platform?</div>
+  <div class="q-answer">
+    "Authentication is strictly database-driven via <code>AuthService.java</code>:
+    <ul>
+      <li>Passwords are salted and hashed using <strong>BCrypt</strong> with 10 work rounds.</li>
+      <li>Upon login, the system queries the database by email, verifies the password using <code>passwordEncoder.matches(raw, hashed)</code>, and retrieves the stored role (<code>STUDENT</code>, <code>ADMIN</code>, or <code>RECRUITER</code>).</li>
+      <li>A secure session token and role payload are returned in <code>LoginResponse.java</code>.</li>
+      <li>The React frontend <code>AuthContext</code> stores the session and dynamically routes users: students see the Job Application Portal, recruiters see the Candidate Evaluation Console, and placement officers see the Executive Intelligence Dashboard. No hardcoded or demo bypasses exist."
+    </ul>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Database</span> Q7: Can you describe your database entity relationships?</div>
+  <div class="q-answer">
+    "The domain model consists of 7 normalized JPA entities:
+    <ul>
+      <li><strong><code>Student</code></strong>: Primary user entity storing credentials, academic metrics (CGPA, backlogs, branch, graduation year), resume link, and role.</li>
+      <li><strong><code>Company</code></strong>: Partner employers with official email, contact phone, website, and headquarters.</li>
+      <li><strong><code>Job</code></strong>: Belongs to a <code>Company</code> (<code>@ManyToOne</code>). Stores hiring criteria (Min CGPA, Allowed Branches, Max Backlogs, Deadline, CTC).</li>
+      <li><strong><code>Application</code></strong>: Relational join entity connecting <code>Student</code> (<code>@ManyToOne</code>) and <code>Job</code> (<code>@ManyToOne</code>) with recruitment stage status.</li>
+      <li><strong><code>Interview</code></strong>: Linked to <code>Application</code> (<code>@ManyToOne</code>). Tracks interview type, scheduled timestamp, mode, panel name, and result.</li>
+      <li><strong><code>Offer</code></strong>: Linked to <code>Application</code> (<code>@ManyToOne</code>). Tracks package CTC, reporting date, and student response (<code>GENERATED</code>, <code>ACCEPTED</code>, <code>DECLINED</code>).</li>
+      <li><strong><code>Notification</code></strong>: Linked to <code>Student</code> (<code>@ManyToOne</code>). Stores in-app alerts with unread counter badges."
+    </ul>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Frontend</span> Q8: How did you manage global state and data synchronization in React without Redux?</div>
+  <div class="q-answer">
+    "We utilized the <strong>React Context API</strong> combined with a centralized custom hook:
+    <ul>
+      <li><strong><code>AuthContext</code></strong>: Manages authentication lifecycle (login, registration, logout, session persistence in <code>localStorage</code>).</li>
+      <li><strong><code>ToastContext</code></strong>: Exposes non-blocking notification dispatchers (<code>success()</code>, <code>error()</code>) with auto-dismissing toast alerts.</li>
+      <li><strong><code>usePlacementData</code> Hook</strong>: Centralizes platform data loading (jobs, companies, applications, interviews, offers, students) using parallel <code>Promise.all</code> requests. It exposes a synchronized <code>refreshData()</code> trigger that child modals invoke whenever an action occurs (e.g. applying, scheduling an interview, or releasing an offer)."
+    </ul>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Engineering</span> Q9: What was a significant architectural challenge you faced, and how did you resolve it?</div>
+  <div class="q-answer">
+    "A major challenge was hardening the authentication architecture from a prototyping setup to a production-ready security model.
+    <br><br>
+    Initially, the system contained hardcoded mock credentials for admin and recruiter logins with dummy IDs (<code>0L</code>, <code>999L</code>) and a default fallback password during student registration. This violated clean security principles and made it impossible to audit real user accounts.
+    <br><br>
+    I refactored <code>AuthService.java</code> to eliminate all bypass branches, enforced database lookup with BCrypt hashing across all roles, cleaned out test accounts from MySQL while preserving real student application histories, and updated the frontend into a single unified role-detecting login modal. All 32 automated unit and integration tests passed cleanly."
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-title"><span class="q-badge">Scalability</span> Q10: How would you scale this platform to support 100,000 students during placement season?</div>
+  <div class="q-answer">
+    <ol>
+      <li><strong>Database Optimization</strong>: Add composite indexes on high-frequency query paths (<code>application(student_id, status)</code>, <code>job(status, deadline)</code>). Implement MySQL Read Replicas for analytics queries so high-volume browsing does not lock transactional writes.</li>
+      <li><strong>In-Memory Caching (Redis)</strong>: Cache static and high-read data like active company profiles (<code>/companies</code>) and open job listings (<code>/jobs</code>) with TTL cache invalidation on job updates, reducing database load by up to 80%.</li>
+      <li><strong>Asynchronous Message Queues (RabbitMQ / Kafka)</strong>: Offload notification creation, interview reminder emails, and offer letter generation into asynchronous worker queues rather than executing them synchronously within HTTP request threads.</li>
+      <li><strong>Stateless JWT Tokens</strong>: Migrate from simple session identifiers to signed JSON Web Tokens (JWT) containing role claims, enabling the Spring Boot backend to be horizontally scaled across container clusters behind a load balancer without sticky sessions."
+    </ol>
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<h2>💡 Quick Interview Terminology & Buzzword Cheat Sheet</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Domain</th>
+      <th>Key Concepts & Keywords to Highlight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Backend Architecture</strong></td>
+      <td>Spring Boot 3.4.3, Java 23, RESTful APIs, Jakarta Bean Validation (<code>@Valid</code>, <code>@NotBlank</code>), Dependency Injection, Global Exception Handling.</td>
+    </tr>
+    <tr>
+      <td><strong>Data Persistence</strong></td>
+      <td>Spring Data JPA, Hibernate ORM, MySQL 8.0, ACID Transactions, Composite Unique Constraints (<code>uk_student_job</code>), HikariCP connection pooling.</td>
+    </tr>
+    <tr>
+      <td><strong>Recruitment Core</strong></td>
+      <td>Deterministic Eligibility Rule Engine, Multi-Stage Workflow State Machine, Pre-Eligibility Live Check, Placement Funnel Analytics.</td>
+    </tr>
+    <tr>
+      <td><strong>Security</strong></td>
+      <td>Spring Security Crypto, BCrypt Salted Hashing (10 rounds), Role-Based Access Control (RBAC), Defense-in-Depth Validation.</td>
+    </tr>
+    <tr>
+      <td><strong>Frontend</strong></td>
+      <td>React 19, Vite 8.2, React Context API, Custom Hooks (<code>usePlacementData</code>), Glassmorphism Design System, CSS Custom Properties.</td>
+    </tr>
+    <tr>
+      <td><strong>Quality & Testing</strong></td>
+      <td>JUnit 5, Mockito Unit Tests, SpringBootTest Integration Suite (32/32 passing tests).</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
